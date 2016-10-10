@@ -7,6 +7,9 @@ languages Curryrs seeks to bridge the gap between the two languages by
 providing an interface between the two that makes writing FFI code
 a relatively painless experience.
 
+This library has only been tested with GHC 8.0.1 and Rust Stable.
+To run the test suite you'll need gcc.
+
 ## Installation
 
 In your Rust project in Cargo.toml:

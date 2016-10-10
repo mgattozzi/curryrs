@@ -9,6 +9,8 @@ repository = "https://github.com/mgattozzi/curryrs"
 readme = "README.md"
 keywords = ["FFI", "Haskell"]
 license = "MIT/Apache-2.0"
+links = "htest"
+build = "build.rs"
 
 # These are needed for the Haskell source code
 # but are dead weight for the Rust Package
@@ -18,7 +20,11 @@ exclude = [
     "Setup.hs",
     "stack.yaml",
     "curryrs.cabal",
-    "Makefile"
+    "Makefile",
+    "htest"
 ]
+
+[workspace]
+members = ["rtest"]
 
 [dependencies]
