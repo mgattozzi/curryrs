@@ -5,7 +5,7 @@ import Convert
 import Test.Tasty
 import Test.Tasty.HUnit
 
-foreign import ccall "double_input" doubleInput :: I32 -> I32
+foreign import ccall "double_input" doubleInput :: Int32 -> Int32
 foreign import ccall "get_true" getTrue :: Boolean
 foreign import ccall "get_false" getFalse :: Boolean
 
