@@ -7,24 +7,16 @@ module Types (
   , module Foreign.C.String
   , Chr
   , Str
-  , Word8
-  -- | Used to represent 8 bit unsigned numbers in both languages
-  , Word16
-  -- | Used to represent 16 bit unsigned numbers in both languages
-  , Word32
-  -- | Used to represent 32 bit unsigned numbers in both languages
-  , Word64
-  -- | Used to represent 64 bit unsigned numbers in both languages
-  , Int8
-  -- | Used to represent 8 bit signed numbers in both languages
-  , Int16
-  -- | Used to represent 16 bit signed numbers in both languages
-  , Int32
-  -- | Used to represent 32 bit signed numbers in both languages
-  , Int64
-  -- | Used to represent 64 bit signed numbers in both languages
-  , Float32
-  , Float64
+  , U8
+  , U16
+  , U32
+  , U64
+  , I8
+  , I16
+  , I32
+  , I64
+  , F32
+  , F64
   , Boolean
   ) where
 
@@ -45,12 +37,44 @@ type Chr = CChar
 type Str = CString
 
 -- |
+-- Used to represent 8 bit unsigned numbers in both languages
+type U8  = Word8
+
+-- |
+-- Used to represent 16 bit unsigned numbers in both languages
+type U16 = Word16
+
+-- |
+-- Used to represent 32 bit unsigned numbers in both languages
+type U32 = Word32
+
+-- |
+-- Used to represent 64 bit unsigned numbers in both languages
+type U64 = Word64
+
+-- |
+-- Used to represent 8 bit signed numbers in both languages
+type I8  = Int8
+
+-- |
+-- Used to represent 16 bit signed numbers in both languages
+type I16 = Int16
+
+-- |
+-- Used to represent 32 bit signed numbers in both languages
+type I32 = Int32
+
+-- |
+-- Used to represent 64 bit signed numbers in both languages
+type I64 = Int64
+
+-- |
 -- Used to represent 32 bit floating point numbers in both languages
-type Float32 = CFloat
+type F32 = CFloat
 
 -- |
 -- Used to represent 64 bit floating point numbers in both languages
-type Float64 = CDouble
+type F64 = CDouble
 
 -- |
 -- Used to represent Booleans in both languages
