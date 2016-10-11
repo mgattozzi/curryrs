@@ -24,9 +24,13 @@ build-depends: curryrs >= 0.1.0 < 0.2.0
 
 ## How to use Curryrs
 Each library contains a module for the FFI types and one for conversion
-to and from types that need extra work to do so. In the case of the
-latter this only occurs for the Boolean type. If you want to create
-functions that export to Haskell from Rust do the following:
+to and from types that need extra work to do so. Right now this
+conversion module only affects the Boolean type, however work in the
+future of this module will likely include structs and other more complicated
+data structures.
+
+If you want to create functions that export to Haskell from Rust do the
+following:
 
 ```rust
 #[macro_use]
@@ -38,15 +42,15 @@ use curryrs::types::*;
 // export each one and place the pub extern for you!
 safe_ffi! (
 
-	fn double_input(x: I32) -> I32 {
+	fn double(x: I32) -> I32 {
 		2 * x
 	}
 
-	fn square_input(x: U64) -> U64 {
+	fn square(x: U64) -> U64 {
 		x * x
 	}
 
-	fn triple_input(x: I64) -> I64 {
+	fn cube(x: I64) -> I64 {
 		x * x * x
 	}
 
@@ -65,10 +69,18 @@ Then in your Haskell program:
 ```haskell
 import Curryrs.Types
 
-foreign import ccall "double_input" doubleInput :: I64 -> I64
+foreign import ccall "double" double :: I64 -> I64
+foreign import ccall "square" square :: I64 -> I64
+foreign import ccall "cube" cube :: I64 -> I64
 
-quadrupleInput :: I64 -> I64
-quadrupleInput x = doubleInput $ doubleInput x
+quadruple :: I64 -> I64
+quadruple x = double $ double x
+
+fourthPower :: I64 -> I64
+fourthPower x = square $ square x
+
+ninthPower :: I64 -> I64
+ninthPower x = cube $ cube x
 ```
 
 Theoretically if you need to export to Rust from Haskell:
@@ -76,10 +88,10 @@ Theoretically if you need to export to Rust from Haskell:
 ```haskell
 import Curryrs.Types
 
-doubleInput :: I64 -> I64
-doubleInput x = 2*x
+triple :: I64 -> I64
+triple x = 3 * x
 
-foreign export ccall doubleInput :: I64 -> I64
+foreign export ccall triple :: I64 -> I64
 ```
 
 Then in your Rust code:
@@ -89,12 +101,13 @@ use curryrs::types::*;
 
 #[link(name = "your_library_name")]
 extern {
-    fn doubleInput(x: I64) -> I64;
+    fn triple(x: I64) -> I64;
 }
 
 fn main() {
-    let x = unsafe { doubleInput(100) };
-    println!("Doubled value is: {}", x);
+    let x = unsafe { triple(100) };
+    // Tripled value is: 300
+    println!("Tripled value is: {}", x);
 }
 ```
 
