@@ -2,20 +2,12 @@
 
 pub use std::os::raw::{
 	c_char,
-	c_uchar,
-	c_ushort,
-	c_uint,
-	c_ulong,
-	c_schar,
-	c_short,
-	c_int,
-	c_long,
 	c_float,
 	c_double
 };
 
-/// FFI Version of char
-pub type Boolean = c_uchar;
+/// FFI Version of bool
+pub type Boolean = u8;
 
 /// FFI Version of char
 pub type Chr = c_char;
@@ -24,28 +16,28 @@ pub type Chr = c_char;
 pub type Str = *const c_char;
 
 /// FFI version of u8
-pub type U8  = c_uchar;
+pub type U8  = u8;
 
 /// FFI version of u16
-pub type U16 = c_ushort;
+pub type U16 = u16;
 
 /// FFI version of u32
-pub type U32 = c_uint;
+pub type U32 = u32;
 
 /// FFI version of u64
-pub type U64 = c_ulong;
+pub type U64 = u64;
 
 /// FFI version of i8
-pub type I8  = c_schar;
+pub type I8  = i8;
 
 /// FFI version of i16
-pub type I16 = c_short;
+pub type I16 = i16;
 
 /// FFI version of i32
-pub type I32 = c_int;
+pub type I32 = i32;
 
 /// FFI version of i64
-pub type I64 = c_long;
+pub type I64 = i64;
 
 /// FFI version of f32
 pub type F32 = c_float;
