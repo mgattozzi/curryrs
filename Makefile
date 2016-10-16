@@ -21,7 +21,7 @@ test: build
 	@  (command -v stack 1,2>/dev/null && cd htest && stack build) \
 	|| (command -v cabal 1,2>/dev/null && cd htest && cabal build) \
 	|| (echo "ERROR: cabal or stack not found" && exit 1)
-	@  (cd htest && gcc -shared -o libchtest.so chtest.c libhtest.so -IFFI_Headers -fPIC) \
+	@  (cd htest && gcc -shared -o libchtest.so chtest.c libhtest.so -fPIC -Wno-implicit) \
 	|| (echo "ERROR: gcc not found" && exit 1)
 	@cargo test
 	@  (command -v stack 1,2>/dev/null && stack test) \

@@ -16,7 +16,7 @@ library
                      , ../src
   exposed-modules:     Lib
   other-extensions:    ForeignFunctionInterface
-  ghc-options:         -dynamic -fPIC -shared -lHSrts-ghc8.0.1 -stubdir FFI_Headers -o libhtest.so
+  ghc-options:         -dynamic -fPIC -shared -lHSrts-ghc8.0.1 -o libhtest.so
   build-depends:       base >= 4.7 && < 5
   c-sources:           hsbracket.c
   default-language:    Haskell2010
