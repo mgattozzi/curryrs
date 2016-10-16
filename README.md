@@ -86,42 +86,8 @@ ninthPower :: I64 -> I64
 ninthPower x = cube $ cube x
 ```
 
-Theoretically if you need to export to Rust from Haskell:
-
-```haskell
-import Curryrs.Types
-
-triple :: I64 -> I64
-triple x = 3 * x
-
-foreign export ccall triple :: I64 -> I64
-```
-
-Then in your Rust code:
-
-```rust
-use curryrs::types::*;
-
-#[link(name = "your_library_name")]
-extern {
-    fn triple(x: I64) -> I64;
-}
-
-fn main() {
-    let x = unsafe { triple(100) };
-    // Tripled value is: 300
-    println!("Tripled value is: {}", x);
-}
-```
-
-However, at this moment I'm working on actually confirming this is the
-case as there isn't much documentation on this yet and I'm still working
-on setting up a proper Rust test suite.
-
-In both cases the types are the same and so it makes it easy to work
-with both without needing to worry about which C type to use and how to
-get it to work, or which modules need to be imported. The C modules are
-imported for both languages so the user doesn't need to worry about it.
+Using Haskell in Rust is a little more complicated as I've found out working on this library.
+I have a more detailed post on how to get it working [here](http://mgattozzi.github.io/2016/10/15/rust-haskell.html) using curryrs that you can reference.
 
 ## Contributing
 See [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
