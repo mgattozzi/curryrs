@@ -1,8 +1,8 @@
-use std::fs::File;
-use std::io::Write;
+use std::fs::read_dir;
 use std::path::Path;
 use std::process::Command;
-use std::{env, str};
+use std::io;
+use std::str;
 
 fn command_output(cmd: &mut Command) -> String {
 	str::from_utf8(&cmd.output().unwrap().stdout)
@@ -20,19 +20,45 @@ fn ghc(builder: &str, arg: &str) -> String {
 }
 
 fn main() {
+	let x = link_ghc_libs();
+
+	match x {
+		Err(e) => panic!("Unable to link ghc_libs: {}", e),
+		Ok(_)  => println!("cargo:rustc-link-search=native=htest"),
+	}
+
+}
+
+fn link_ghc_libs() -> io::Result<()> {
+
 	let builder = if command_ok(Command::new("stack").arg("--version")) {
 		"stack"
 	} else {
 		"cabal"
 	};
-	let ghc_version = ghc(builder, "--numeric-version");
-	let ghc_libdir = ghc(builder, "--print-libdir");
-	println!("cargo:rustc-link-search=native=htest");
-	println!("cargo:rustc-link-search=native={}/rts", ghc_libdir);
 
-	let out_dir = env::var("OUT_DIR").unwrap();
-	let dest_path = Path::new(&out_dir).join("hs_rts.rs");
-	let mut f = File::create(&dest_path).unwrap();
-	let ghc_rts_rs = format!("#[link(name = \"HSrts-ghc{}\")]\nextern {{}}\n", ghc_version);
-	f.write_all(ghc_rts_rs.as_bytes()).unwrap();
+	let ghc_libdir = ghc(builder, "--print-libdir");
+	let lib_path = Path::new(&ghc_libdir);
+
+	for entry in try!(read_dir(lib_path)) {
+		let entry = try!(entry);
+
+		if try!(entry.metadata()).is_dir() {
+			for item in try!(read_dir(entry.path())) {
+				match (entry.path().to_str(), try!(item).file_name().to_str()) {
+					(Some(e),Some(i)) => {
+						if i.starts_with("lib") && i.ends_with(".so") {
+							println!("cargo:rustc-link-search=native={}", e);
+							let temp = i.split_at(3).1;
+							let trimmed = temp.split_at(temp.len() - 3).0;
+							println!("cargo:rustc-link-lib=dylib={}", trimmed);
+						}
+					},
+					_ => panic!("Unable to link ghc libs"),
+				}
+			}
+		}
+	}
+
+	Ok(())
 }
