@@ -20,13 +20,12 @@ fn ghc(builder: &str, arg: &str) -> String {
 }
 
 fn main() {
-	let x = link_ghc_libs();
-
-	match x {
+	// Traverse the directory to link all of the libs in ghc
+	// then tell cargo where to get htest for linking
+	match link_ghc_libs() {
 		Err(e) => panic!("Unable to link ghc_libs: {}", e),
 		Ok(_)  => println!("cargo:rustc-link-search=native=htest"),
 	}
-
 }
 
 fn link_ghc_libs() -> io::Result<()> {
@@ -37,19 +36,22 @@ fn link_ghc_libs() -> io::Result<()> {
 		"cabal"
 	};
 
-	let ghc_libdir = ghc(builder, "--print-libdir");
-	let lib_path = Path::new(&ghc_libdir);
-
-	for entry in try!(read_dir(lib_path)) {
+	// Go to the libdir for ghc then traverse all the entries
+	for entry in try!(read_dir(Path::new(&ghc(builder, "--print-libdir"))) {
 		let entry = try!(entry);
 
+		// For each directory in the libdir check it for .so files and
+		// link them.
 		if try!(entry.metadata()).is_dir() {
 			for item in try!(read_dir(entry.path())) {
 				match (entry.path().to_str(), try!(item).file_name().to_str()) {
+					// This directory has lib files link them
 					(Some(e),Some(i)) => {
 						if i.starts_with("lib") && i.ends_with(".so") {
 							println!("cargo:rustc-link-search=native={}", e);
+							// Get rid of lib from the file name
 							let temp = i.split_at(3).1;
+							// Get rid of the .so from the file name
 							let trimmed = temp.split_at(temp.len() - 3).0;
 							println!("cargo:rustc-link-lib=dylib={}", trimmed);
 						}
