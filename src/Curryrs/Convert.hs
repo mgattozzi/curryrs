@@ -2,12 +2,12 @@
 -- The Convert module contains various functions used for converting
 -- values to or from their FFI form. It also contains Error types in
 -- case conversions to not go as planned.
-module Convert (
+module Curryrs.Convert (
     fromBoolean
   , ConversionError
   ) where
 
-import Types (Boolean)
+import Curryrs.Types (Boolean)
 
 -- |
 -- This method tries to to turn a number returned

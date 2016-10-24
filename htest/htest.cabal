@@ -15,7 +15,7 @@ library
   hs-source-dirs:      src
                      , ../src
   exposed-modules:     Lib
-  other-modules:       Types
+  other-modules:       Curryrs.Types
   other-extensions:    ForeignFunctionInterface
   ghc-options:         -dynamic -fPIC -shared -o libhtest.so
   build-depends:       base >= 4.7 && < 5
