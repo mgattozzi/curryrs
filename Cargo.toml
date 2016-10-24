@@ -28,3 +28,11 @@ exclude = [
 members = ["rtest"]
 
 [dependencies]
+
+[features]
+# Features available for chooising alternative
+# Runtime libraries for Haskell. By default it
+# is the non-threaded non-debug version
+threaded = []
+threaded_l = []
+threaded_debug = []

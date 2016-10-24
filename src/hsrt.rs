@@ -18,7 +18,7 @@ extern {
 /// do so will cause undefined behavior and the runtime will run without
 /// stopping. This could cause memory leaks or a whole bunch of other
 /// errors that can't be checked.
-pub fn hs_start(mut func: String) {
+pub fn start(mut func: String) {
 	func.push('\0');
 	let argv0 = func.as_ptr();
 	let mut argv = [argv0 as *mut c_char, ptr::null_mut()];
@@ -32,6 +32,6 @@ pub fn hs_start(mut func: String) {
 ///
 /// This should only be called after the `hs_start()` function has been invoked
 
-pub fn hs_stop() {
+pub fn stop() {
 	unsafe{hs_exit()};
 }

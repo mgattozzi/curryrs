@@ -1,6 +1,6 @@
 extern crate curryrs;
 use curryrs::types::*;
-use curryrs::hsrt::*;
+use curryrs::hsrt;
 
 #[link(name = "htest", kind = "dylib")]
 extern {
@@ -9,9 +9,9 @@ extern {
 
 
 fn triple_num(x: I32) -> I32 {
-		hs_start("triple".to_string());
+		hsrt::start("triple".to_string());
 		let y = unsafe{triple(x)};
-		hs_stop();
+		hsrt::stop();
 		y
 }
 

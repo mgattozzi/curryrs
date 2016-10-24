@@ -19,6 +19,31 @@ fn ghc(builder: &str, arg: &str) -> String {
 	command_output(Command::new(builder).args(&["exec", "--", "ghc", arg]))
 }
 
+// Each os has a diferent extesion for the Dynamic Libraries. This compiles for
+// the correct ones.
+#[cfg(not(any(target_os = "macos", target_os = "windows")))]
+const DYLIB_EXTENSION: &'static str = ".so";
+
+#[cfg(target_os = "macos")]
+const DYLIB_EXTENSION: &'static str = ".dylib";
+
+#[cfg(target_os = "windows")]
+const DYLIB_EXTENSION: &'static str = ".dll";
+
+// This allows the user to choose which version of the Runtime System they want
+// to use. By default it is non threaded.
+#[cfg(not(any(feature = "threaded", feature = "threaded_l", feature = "threaded_debug")))]
+const RTS: &'static str = "libHSrts-g";
+
+#[cfg(feature = "threaded")]
+const RTS: &'static str = "libHSrts_thr-";
+
+#[cfg(feature = "threaded_l")]
+const RTS: &'static str = "libHSrts_thr_l-";
+
+#[cfg(feature = "threaded_debug")]
+const RTS: &'static str = "libHSrts_thr_debug-";
+
 fn main() {
 	// Traverse the directory to link all of the libs in ghc
 	// then tell cargo where to get htest for linking
@@ -37,7 +62,7 @@ fn link_ghc_libs() -> io::Result<()> {
 	};
 
 	// Go to the libdir for ghc then traverse all the entries
-	for entry in try!(read_dir(Path::new(&ghc(builder, "--print-libdir"))) {
+	for entry in try!(read_dir(Path::new(&ghc(builder, "--print-libdir")))) {
 		let entry = try!(entry);
 
 		// For each directory in the libdir check it for .so files and
@@ -47,13 +72,24 @@ fn link_ghc_libs() -> io::Result<()> {
 				match (entry.path().to_str(), try!(item).file_name().to_str()) {
 					// This directory has lib files link them
 					(Some(e),Some(i)) => {
-						if i.starts_with("lib") && i.ends_with(".so") {
-							println!("cargo:rustc-link-search=native={}", e);
-							// Get rid of lib from the file name
-							let temp = i.split_at(3).1;
-							// Get rid of the .so from the file name
-							let trimmed = temp.split_at(temp.len() - 3).0;
-							println!("cargo:rustc-link-lib=dylib={}", trimmed);
+						if i.starts_with("lib") && i.ends_with(DYLIB_EXTENSION) {
+
+							// This filtering of items gets us the bare minimum of libraries
+							// we need in order to get the Haskell Runtime linked into the
+							// library. By default it's the non-threaded version that is
+							// chosen
+							if  i.starts_with(RTS) ||
+								i.starts_with("libHSghc-") && !i.starts_with("libHSghc-boot-") ||
+								i.starts_with("libHSbase") ||
+								i.starts_with("libHSinteger-gmp") {
+
+								println!("cargo:rustc-link-search=native={}", e);
+								// Get rid of lib from the file name
+								let temp = i.split_at(3).1;
+								// Get rid of the .so from the file name
+								let trimmed = temp.split_at(temp.len() - DYLIB_EXTENSION.len()).0;
+								println!("cargo:rustc-link-lib=dylib={}", trimmed);
+							}
 						}
 					},
 					_ => panic!("Unable to link ghc libs"),
