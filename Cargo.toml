@@ -30,7 +30,7 @@ members = ["rtest"]
 [dependencies]
 
 [features]
-# Features available for chooising alternative
+# Features available for choosing alternative
 # Runtime libraries for Haskell. By default it
 # is the non-threaded non-debug version
 threaded = []
