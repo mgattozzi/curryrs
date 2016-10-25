@@ -155,9 +155,9 @@ fn main() {
   // or calls to Haskell code will fail.
   start("Haskell Functions".to_string());
 
-  println!("2^4 is: {}, unsafe{fourth(2)});
-  println!("2^5 is: {}, unsafe{fifth(2)});
-  println!("2^6 is: {}, unsafe{sixth(2)});
+  println!("2^4 is: {}", unsafe{fourth(2)});
+  println!("2^5 is: {}", unsafe{fifth(2)});
+  println!("2^6 is: {}", unsafe{sixth(2)});
 
   // You need to make sure the runtime is stopped
   // otherwise you'll have undefined behavior
