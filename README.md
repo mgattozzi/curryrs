@@ -114,6 +114,7 @@ In your cabal file add the following lines:
 
 ```cabal
 other-extensions: ForeignFunctionInterface
+
 -- It should end with .so if you're on linux, .dylib for Mac, and
 -- .dll for Windows
 ghc-options: -dynamic -fPIC -shared -o lib{your_library_name_here}.so
@@ -162,6 +163,7 @@ fn main() {
   // otherwise you'll have undefined behavior
   // and wasted resources.
   stop();
+}
 ```
 
 This makes it easy to do without needing to muck around with linking the
