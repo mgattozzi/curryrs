@@ -25,7 +25,7 @@ exclude = [
 ]
 
 [workspace]
-members = ["rtest", "hrgen"]
+members = ["rtest", "hrgen", "hrgen/hs-type-parser"]
 
 [dependencies]
 
