@@ -1,7 +1,7 @@
 module Main where
 
-import Types
-import Convert
+import Curryrs.Types
+import Curryrs.Convert
 import Test.Tasty
 import Test.Tasty.HUnit
 

@@ -14,8 +14,8 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:     Types
-                     , Convert
+  exposed-modules:     Curryrs.Types
+                     , Curryrs.Convert
   build-depends:       base >= 4.7 && < 5
                      , mtl  >= 2.2 && < 2.3
   default-language:    Haskell2010

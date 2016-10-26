@@ -5,6 +5,7 @@ indent_style = tab
 
 [*.rs]
 indent_style = tab
+indent_size = 4
 
 [*.hs]
 indent_style = space

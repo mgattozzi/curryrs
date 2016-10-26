@@ -2,7 +2,7 @@
 -- Definitions of each FFI type that can be used in Rust. These are
 -- standardized accross the Rust and Haskell Curryrs library for easy
 -- translation of function headers between the two.
-module Types (
+module Curryrs.Types (
     module Foreign.C.Types
   , module Foreign.C.String
   , Chr

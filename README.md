@@ -16,13 +16,13 @@ In your Rust project in Cargo.toml:
 
 ```toml
 [dependencies]
-curryrs = "^0.1.0"
+curryrs = "^0.2.0"
 ```
 
 In your Haskell project in it's cabal file:
 
 ```cabal
-build-depends: curryrs >= 0.1.0 < 0.2.0
+build-depends: curryrs >= 0.2.0 < 0.3.0
 ```
 
 ## How to use Curryrs
@@ -32,6 +32,7 @@ conversion module only affects the Boolean type, however work in the
 future of this module will likely include structs and other more complicated
 data structures.
 
+### Rust in Haskell
 If you want to create functions that export to Haskell from Rust do the
 following:
 
@@ -86,8 +87,110 @@ ninthPower :: I64 -> I64
 ninthPower x = cube $ cube x
 ```
 
-Using Haskell in Rust is a little more complicated as I've found out working on this library.
-I have a more detailed post on how to get it working [here](http://mgattozzi.github.io/2016/10/15/rust-haskell.html) using curryrs that you can reference.
+### Haskell in Rust
+To run your Haskell code in Rust do the following steps:
+
+First write and export the code you want for Haskell and use
+the Curryrs.Types module to have FFI compatible types.
+
+```haskell
+import Curryrs.Types
+
+foreign export ccall fourth :: I64 -> I64
+foreign export ccall fifth :: I64 -> I64
+foreign export ccall sixth :: I64 -> I64
+
+fourth :: I64 -> I64
+fourth x = x * x * x * x
+
+fifth :: I64 -> I64
+fithh x = x * x * x * x * x
+
+sixth :: I64 -> I64
+sixth x = x * x * x * x * x * x
+```
+
+In your cabal file add the following lines:
+
+```cabal
+other-extensions: ForeignFunctionInterface
+
+-- It should end with .so if you're on Linux, .dylib for Mac, and
+-- .dll for Windows
+ghc-options: -dynamic -fPIC -shared -o lib{your_library_name_here}.so
+```
+
+Now in your Cargo.toml file add the following under package:
+
+```toml
+build = "build.rs"
+```
+
+Then in your `build.rs` file:
+
+```rust
+fn main() {
+  println!("cargo:rustc-link-search=native={path_to_your_haskell_library_directory}");
+  println!("cargo:rustc-link-lib=native={library_name_w/o_lib_and_extension}");
+}
+```
+
+This links your Haskell library in at compilation. Now for the actual
+code itself:
+
+```rust
+extern crate curryrs;
+use curryrs::hsrt::{start,stop};
+use curryrs::types::I64;
+
+extern {
+  pub fn fourth(x: I64) -> I64;
+  pub fn fifth(x: I64) -> I64;
+  pub fn sixth(x: I64) -> I64;
+}
+
+fn main() {
+  // Input is whatever you want to pass to argv whenever
+  // you start the Haskell Runtime. You need to start it
+  // or calls to Haskell code will fail.
+  start("Haskell Functions".to_string());
+
+  println!("2^4 is: {}", unsafe{fourth(2)});
+  println!("2^5 is: {}", unsafe{fifth(2)});
+  println!("2^6 is: {}", unsafe{sixth(2)});
+
+  // You need to make sure the runtime is stopped
+  // otherwise you'll have undefined behavior
+  // and wasted resources.
+  stop();
+}
+```
+
+This makes it easy to do without needing to muck around with linking the
+right libraries and you're easily able to call the runtime you want.
+
+The library also allows you to choose which version of the Haskell
+Runtime you want to use. By default it uses the non-threaded version.
+You can choose which one you want with a feature flag in `Cargo.toml`
+
+```toml
+[dependencies]
+# If you need the threaded runtime put this:
+curryrs = { version = "^0.2.0", features = "threaded" }
+
+# If you need the threaded runtime w/ logging put this:
+curryrs = { version = "^0.2.0", features = "threaded_l" }
+
+# If you need the threaded runtime w/ debug output put this:
+curryrs = { version = "^0.2.0", features = "threaded_debug" }
+```
+
+## Bug Reports
+If you encounter errors of any sort please take a look in the issue
+tracker first. If your error is already there or has been closed before
+take a look at how it was solved or contribute to the open bug by
+explaining what has happened while using the library. Duplicates will be
+marked and closed.
 
 ## Contributing
 See [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
