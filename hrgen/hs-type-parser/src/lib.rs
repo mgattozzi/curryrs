@@ -54,16 +54,23 @@ impl<I> Parser for TypeParser<I>
 			c.is_alphanumeric() || c == '\'' || c == '#'
 		}
 
+		// Terminals
 		let var_parser = try(lex((lower(), many(satisfy(is_ident_tail))))
 			.map(char_join).map(var));
 		let constr_parser = try(lex((upper(), many(satisfy(is_ident_tail))))
 			.map(char_join).map(constr));
 		let arrow = try(lex(string("->"))).map(|s| constr(s));
 		let unit = try(lex(string("()"))).map(constr);
+
+		// The recursive parenthesized expression parser
 		let paren = try(lex((char('('), type_parser(), char(')')))).map(|t| t.1);
 
+		// Any term
 		let term = unit.or(paren).or(constr_parser).or(var_parser);
 
+		// We have two infix operators: the function arrow, and application as
+		// juxtaposition. We need to try to parse the arrow first, as it may be
+		// preceeded by whitespace.
 		let op_parser = arrow.map(Some).or(skip_many1(space()).map(|_| None)).map(|op| {
 			match op {
 				Some(_) => (op, Assoc { precedence: 1, fixity: Fixity::Right }),
@@ -84,6 +91,7 @@ fn type_parser<I: combine::Stream<Item = char>>() -> TypeParser<I> {
 	TypeParser(PhantomData)
 }
 
+/// Parse a Haskell type
 pub fn parse_type(input: &str) -> Result<(Type, &str), combine::ParseError<&str>> {
 	type_parser().parse(input)
 }
