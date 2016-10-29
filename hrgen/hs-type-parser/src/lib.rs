@@ -146,3 +146,23 @@ fn lex<P: Parser<Input=I>, I>(p: P) -> Seq<Right, Whitespace<I>, P>
 {
 	seqr(whitespace(), p)
 }
+
+#[test]
+fn parse_type_test() {
+	assert_eq!(parse_type("Int"), Ok(((constr("Int")), "")));
+	assert_eq!(parse_type("a"), Ok(((var("a")), "")));
+	assert_eq!(parse_type("(a)"), Ok(((var("a")), "")));
+	assert_eq!(parse_type("Vec a"), Ok((app(constr("Vec"), var("a")), "")));
+	assert_eq!(parse_type("f   a"), Ok((app(var("f"), var("a")), "")));
+	assert_eq!(parse_type("In a -> Out"),
+	         Ok((func(app(constr("In"), var("a")), constr("Out")), "")));
+	assert_eq!(parse_type("In a -> (In b -> Out) -> Out"),
+	         Ok((func(app(constr("In"), var("a")),
+	               func(func(app(constr("In"), var("b")), constr("Out")), constr("Out"))),
+	            "")));
+	assert_eq!(parse_type("FunPtr (I32 -> IO I32) -> IO ()"),
+	           Ok((func(app(constr("FunPtr"),
+	                        func(constr("I32"), app(constr("IO"), constr("I32")))),
+	                    app(constr("IO"), constr("()"))),
+	               "")));
+}

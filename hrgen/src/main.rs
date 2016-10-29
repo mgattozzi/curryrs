@@ -58,28 +58,6 @@ fn main() {
 	println!("{}",output_buffer);
 }
 
-#[test]
-fn parse_hs_type_test() {
-	use hs_type_parser::*;
-
-	assert_eq!(parse_type("Int"), Ok(((constr("Int")), "")));
-	assert_eq!(parse_type("a"), Ok(((var("a")), "")));
-	assert_eq!(parse_type("(a)"), Ok(((var("a")), "")));
-	assert_eq!(parse_type("Vec a"), Ok((app(constr("Vec"), var("a")), "")));
-	assert_eq!(parse_type("f   a"), Ok((app(var("f"), var("a")), "")));
-	assert_eq!(parse_type("In a -> Out"),
-	         Ok((func(app(constr("In"), var("a")), constr("Out")), "")));
-	assert_eq!(parse_type("In a -> (In b -> Out) -> Out"),
-	         Ok((func(app(constr("In"), var("a")),
-	               func(func(app(constr("In"), var("b")), constr("Out")), constr("Out"))),
-	            "")));
-	assert_eq!(parse_type("FunPtr (I32 -> IO I32) -> IO ()"),
-	           Ok((func(app(constr("FunPtr"),
-	                        func(constr("I32"), app(constr("IO"), constr("I32")))),
-	                    app(constr("IO"), constr("()"))),
-	               "")));
-}
-
 fn parse_hs_export(buffer: &mut String, line: String) {
 	// List that we draw from for function headers
 	let symbols = ['a','b','c','d','e','f','g','h','i','j','k','l','m',
