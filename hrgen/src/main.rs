@@ -1,4 +1,5 @@
 extern crate clap;
+extern crate hs_type_parser;
 use clap::{Arg, App};
 use std::io::prelude::*;
 use std::fs::File;

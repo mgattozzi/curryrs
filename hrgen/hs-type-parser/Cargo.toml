@@ -1,0 +1,9 @@
+[package]
+name = "hs-type-parser"
+version = "0.1.0"
+authors = ["NanoTech <nanotech@nanotechcorp.net>"]
+license = "MIT/Apache-2.0"
+
+[dependencies]
+combine = "2.0"
+combine-language = "2.0"
