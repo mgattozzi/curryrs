@@ -13,14 +13,20 @@ extern {
 	pub fn getProgNameStr() -> Str;
 }
 
+fn triple_num(x: I32) -> I32 {
+	hsrt::start();
+	unsafe { triple(x) }
+}
+
 #[test]
 fn ffi_test() {
+	// TODO Use the threaded Haskell runtime to let tests run safely in
+	//      parallel, allowing separate test functions.
+
+	assert_eq!(900, triple_num(300));
+
 	hsrt::start();
-	// TODO Split these tests up
-	let y = unsafe { triple(300) };
 	let prog_name = unsafe { getProgNameStr() };
-	hsrt::stop();
-	assert_eq!(900, y);
 	assert!(!prog_name.is_null());
 	let prog_name_str = unsafe { CStr::from_ptr(prog_name) }.to_str().unwrap();
 	let argv0 = env::args().nth(0).unwrap();
