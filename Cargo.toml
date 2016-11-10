@@ -28,6 +28,7 @@ exclude = [
 members = ["rtest", "hrgen", "hrgen/hs-type-parser"]
 
 [dependencies]
+libc = "0.2"
 
 [features]
 # Features available for choosing alternative
