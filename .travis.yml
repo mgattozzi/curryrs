@@ -8,7 +8,7 @@ rust:
 cache: cargo
 before_install:
 - sudo apt-get update
-- sudo apt-get install make haskell-stack
-- stack upgrade
+- sudo apt-get install make
+- curl -sSL https://get.haskellstack.org/ | sh
 script:
 - make build && make test
