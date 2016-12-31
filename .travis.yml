@@ -6,9 +6,11 @@ os:
 rust:
   - nightly
 cache: cargo
+
 before_install:
 - sudo apt-get update
-- sudo apt-get install make
+- sudo apt-get install make libgmp-dev
 - curl -sSL https://get.haskellstack.org/ | sh
+- stack setup
 script:
 - make build && make test
