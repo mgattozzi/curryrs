@@ -6,13 +6,9 @@ os:
 rust:
   - nightly
 cache: cargo
-addons:
-  apt:
-    packages:
-    - make
-    - gcc
-    - stack
 before_install:
+- sudo apt-get upate
+- sudo apt-get install make stack
 - stack upgrade
 script:
 - make build && make test
