@@ -1,5 +1,7 @@
 # Curryrs
 
+[![Build Status](https://travis-ci.org/mgattozzi/curryrs.svg?branch=master)](https://travis-ci.org/mgattozzi/curryrs)
+
 Curryrs (a play on the name of Haskell Curry, rs for Rust libraries, and
 it's pronunciation couriers) is a library for providing easy to use bindings
 between Rust and Haskell Code. Given the type safety inherent in both

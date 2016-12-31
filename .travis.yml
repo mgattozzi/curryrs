@@ -1,0 +1,18 @@
+sudo: true
+language: rust
+os:
+  - linux
+  - osx
+rust:
+  - nightly
+cache: cargo
+addons:
+  apt:
+    packages:
+    - make
+    - gcc
+    - stack
+before_install:
+- stack upgrade
+script:
+- make build && make test
