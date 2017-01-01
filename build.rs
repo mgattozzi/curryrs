@@ -78,18 +78,12 @@ fn link_ghc_libs() -> io::Result<()> {
 							// we need in order to get the Haskell Runtime linked into the
 							// library. By default it's the non-threaded version that is
 							// chosen
-							if  i.starts_with(RTS) ||
-								i.starts_with("libHSghc-") && !i.starts_with("libHSghc-boot-") ||
-								i.starts_with("libHSbase") ||
-								i.starts_with("libHSinteger-gmp") {
-
 								println!("cargo:rustc-link-search=native={}", e);
 								// Get rid of lib from the file name
 								let temp = i.split_at(3).1;
 								// Get rid of the .so from the file name
 								let trimmed = temp.split_at(temp.len() - DYLIB_EXTENSION.len()).0;
 								println!("cargo:rustc-link-lib=dylib={}", trimmed);
-							}
 						}
 					},
 					_ => panic!("Unable to link ghc libs"),
