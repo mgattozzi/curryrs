@@ -13,4 +13,4 @@ before_install:
 - curl -sSL https://get.haskellstack.org/ | sh
 - stack setup
 script:
-- make build && make test
+- make test
