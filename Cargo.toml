@@ -10,7 +10,7 @@ readme = "README.md"
 keywords = ["FFI", "Haskell"]
 license = "MIT/Apache-2.0"
 links = "htest"
-build = "build.rs"
+build = "src/build.rs"
 
 # These are needed for the Haskell source code
 # but are dead weight for the Rust Package
