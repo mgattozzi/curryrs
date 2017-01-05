@@ -10,13 +10,21 @@ use std::env;
 /// Link to a Haskell package. The package must have a custom Setup.hs
 pub fn link_package(name: &str, path: &Path) {
 	let builddir = Path::new(&env::var("OUT_DIR").unwrap()).join(format!("HS{}-dist", name));
-	call_command(Command::new("cabal")
-	                     .arg("build")
-	                     .arg("--builddir")
-	                     .arg(builddir.to_str().unwrap())
-	                     .current_dir(&path)
-	                     .stdout(Stdio::inherit()),
-	             "failed to build haskell package");
+	let mut cmd = Command::new("cabal");
+	cmd.arg("build")
+	   .arg("--builddir")
+	   .arg(builddir.to_str().unwrap())
+	   .current_dir(&path)
+	   .stdout(Stdio::inherit());
+
+	#[cfg(feature = "threaded")]
+	cmd.arg("--ghc-option=-threaded");
+	#[cfg(feature = "eventlog")]
+	cmd.arg("--ghc-option=-eventlog");
+	#[cfg(feature = "debug")]
+	cmd.arg("--ghc-option=-debug");
+
+	call_command(&mut cmd, "failed to build haskell package");
 }
 
 #[allow(dead_code)]

@@ -35,5 +35,5 @@ libc = "0.2"
 # Runtime libraries for Haskell. By default it
 # is the non-threaded non-debug version
 threaded = []
-threaded_l = []
-threaded_debug = []
+eventlog = []
+debug = ["eventlog"]
