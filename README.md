@@ -193,7 +193,14 @@ explaining what has happened while using the library. Duplicates will be
 marked and closed.
 
 ## Contributing
-See [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
+See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for more information.
+
+## Tests
+See [TESTS.md](docs/TESTS.md) for more information.
+
+## Tests
+To see a list of changes between version take a look at [CHANGELOG.md](docs/CHANGELOG.md)
+for more information.
 
 ## License
 
