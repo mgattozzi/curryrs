@@ -3,6 +3,7 @@ Cargo.lock
 .stack-work
 dist
 *.a
+*.o
 *.so
 .cabal-sandbox
 cabal.sandbox.config

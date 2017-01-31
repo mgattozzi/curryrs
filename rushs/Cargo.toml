@@ -1,0 +1,8 @@
+[package]
+name = "rushs"
+version = "0.1.0"
+authors = ["Michael Gattozzi <mgattozzi@gmail.com>"]
+build = "build.rs"
+
+[dependencies]
+curryrs = "^0.1.0"

@@ -1,0 +1,28 @@
+name:                hs2rs
+version:             0.1.0.0
+synopsis:            Use Haskell in Rust!
+description:         Please see README.md
+homepage:            https://github.com/mgattozzi/rushs
+license:             BSD3
+license-file:        LICENSE
+author:              Michael Gattozzi
+maintainer:          mgattozzi@gmail.com
+copyright:           2016 Michael Gattozzi
+category:            FFI
+build-type:          Simple
+-- extra-source-files:
+cabal-version:       >=1.10
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     Lib
+  other-extensions:    ForeignFunctionInterface
+  ghc-options:         -dynamic -fPIC -shared -lHSrts-ghc8.0.1 -o libhs.so
+  build-depends:       base >= 4.7 && < 5
+                     , curryrs
+  c-sources:           src/wrapper.c
+  default-language:    Haskell2010
+
+source-repository head
+  type:     git
+  location: https://github.com/mgattozzi/rushs
