@@ -34,7 +34,7 @@ test-rust: test-build
 	@cargo test
 
 test-haskell: test-build
-	@  (command -v stack 1,2>/dev/null && stack test) \
+	@  (command -v stack 1,2>/dev/null && stack --no-terminal test) \
 	|| (command -v cabal 1,2>/dev/null && cabal test) \
 	|| (echo "ERROR: cabal or stack not found" && exit 1)
 
