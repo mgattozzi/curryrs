@@ -7,7 +7,7 @@ use curryrs::types::*;
 // export each one and place the pub extern for you!
 safe_ffi! (
 
-	fn double_input(x: I32) -> I32 {
+	fn double_input(x: I64) -> I64 {
 		2 * x
 	}
 

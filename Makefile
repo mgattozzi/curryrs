@@ -16,12 +16,24 @@ cargo:
 	@echo "Rust Library built"
 
 # Run the tests in both libraries
-test: build
+test: test-build
+	@cargo test
+	@  (command -v stack 1,2>/dev/null && stack test) \
+	|| (command -v cabal 1,2>/dev/null && cabal test) \
+	|| (echo "ERROR: cabal or stack not found" && exit 1)
+
+# Build the test libraries
+test-build: build
 	@(cd rtest && cargo build --release)
 	@  (command -v stack 1,2>/dev/null && cd htest && stack build) \
 	|| (command -v cabal 1,2>/dev/null && cd htest && cabal build) \
 	|| (echo "ERROR: cabal or stack not found" && exit 1)
+
+# Run the tests for Rust
+test-rust: test-build
 	@cargo test
+
+test-haskell: test-build
 	@  (command -v stack 1,2>/dev/null && stack test) \
 	|| (command -v cabal 1,2>/dev/null && cabal test) \
 	|| (echo "ERROR: cabal or stack not found" && exit 1)

@@ -29,6 +29,7 @@ test-suite curryrs-test
                      , curryrs
                      , tasty >= 0.11
                      , tasty-hunit >= 0.9.2
+                     , tasty-quickcheck >= 0.8.4
   -- We only have to do this because ghc-pkg doesn't work with relative paths for
   -- extra-lib-dirs.
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N -Ltarget/release -lrtest -lpthread
