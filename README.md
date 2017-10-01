@@ -10,6 +10,14 @@ a relatively painless experience.
 This library has only been tested with GHC 8.0.1 and Rust Stable.
 To run the test suite you'll need gcc.
 
+## Project Status
+
+Currently this is broken until I can figure out how to set the LD_LIBRARY_PATH
+for Rust when it compiles and links to the GHC libraries. Until then unfortunately
+nothing works unless you have the shared object files in the same directory as
+your library or binary. It's not broken per se but no further work can be done
+on it till it gets fixed.
+
 ## Installation
 
 In your Rust project in Cargo.toml:
