@@ -12,11 +12,9 @@ To run the test suite you'll need gcc.
 
 ## Project Status
 
-Currently this is broken until I can figure out how to set the LD_LIBRARY_PATH
-for Rust when it compiles and links to the GHC libraries. Until then unfortunately
-nothing works unless you have the shared object files in the same directory as
-your library or binary. It's not broken per se but no further work can be done
-on it till it gets fixed.
+This library used to not work due to some linking issues. It's not working still
+right now in it's current state but a fix is on the way see [here](https://github.com/mgattozzi/curryrs/issues/20)
+for more details!
 
 ## Installation
 
@@ -206,7 +204,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for more information.
 ## Tests
 See [TESTS.md](docs/TESTS.md) for more information.
 
-## Tests
+## Changelog
 To see a list of changes between version take a look at [CHANGELOG.md](docs/CHANGELOG.md)
 for more information.
 
