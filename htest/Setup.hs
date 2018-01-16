@@ -1,2 +1,2 @@
-import Distribution.Simple
-main = defaultMain
+import Curryrs.Build
+main = curryrsMain

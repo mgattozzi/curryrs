@@ -10,7 +10,7 @@ readme = "README.md"
 keywords = ["FFI", "Haskell"]
 license = "MIT/Apache-2.0"
 links = "htest"
-build = "build.rs"
+build = "src/build.rs"
 
 # These are needed for the Haskell source code
 # but are dead weight for the Rust Package
@@ -35,5 +35,5 @@ libc = "0.2"
 # Runtime libraries for Haskell. By default it
 # is the non-threaded non-debug version
 threaded = []
-threaded_l = []
-threaded_debug = []
+eventlog = []
+debug = ["eventlog"]

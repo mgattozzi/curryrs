@@ -7,7 +7,6 @@ use std::path::Path;
 use curryrs::types::*;
 use curryrs::hsrt;
 
-#[link(name = "htest", kind = "dylib")]
 extern {
 	pub fn triple(x: I32) -> I32;
 	pub fn getProgNameStr() -> Str;
