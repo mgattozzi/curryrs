@@ -12,23 +12,20 @@ license = "MIT/Apache-2.0"
 links = "htest"
 build = "build.rs"
 
-# These are needed for the Haskell source code
-# but are dead weight for the Rust Package
-exclude = [
-    "rtest",
-    "haskell-tests",
-    "Setup.hs",
-    "stack.yaml",
-    "curryrs.cabal",
-    "Makefile",
-    "htest"
-]
+[lib]
+name = "curryrs"
+crate-type = ["rlib"]
 
 [workspace]
 members = ["rtest", "hrgen", "hrgen/hs-type-parser"]
 
 [dependencies]
 libc = "0.2"
+ghc-rts-rs = { path = "../ghc-rts-rs" }
+
+[build-dependencies]
+walkdir = "*"
+cabal-rs = { path = "../cabal-rs" }
 
 [features]
 # Features available for choosing alternative
@@ -37,3 +34,31 @@ libc = "0.2"
 threaded = []
 threaded_l = []
 threaded_debug = []
+[package]
+authors = ["Michael Gattozzi <mgattozzi@gmail.com>"]
+description = "Pure Rust bindings to the Github API"
+name = "github-rs"
+version = "0.6.1"
+license = "MIT"
+repository = "https://github.com/mgattozzi/github-rs.git"
+homepage = "https://github.com/mgattozzi/github-rs"
+documentation = "https://docs.rs/github-rs/"
+
+[badges]
+travis-ci = { repository = "mgattozzi/github-rs", branch = "master" }
+appveyor = { repository = "mgattozzi/github-rs", branch = "master", service = "github" }
+
+[dependencies]
+hyper = "0.11"
+hyper-rustls = "0.11"
+error-chain = "0.11"
+tokio-core = "0.1"
+futures = "0.1"
+serde = "1.0"
+serde_json = "1.0"
+
+[dev-dependencies]
+serde_derive = "1.0"
+
+[workspaces]
+members = ["github-gql-rs"]

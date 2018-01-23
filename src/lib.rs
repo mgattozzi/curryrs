@@ -3,6 +3,7 @@
 //! Curryrs is a library made for bridging the gap between Rust and Haskell making it easy
 //! to use code in from either language in the other.
 extern crate libc;
+extern crate ghc_rts;
 pub mod macros;
 pub mod convert;
 pub mod types;

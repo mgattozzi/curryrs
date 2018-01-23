@@ -1,11 +1,12 @@
 {-# LANGUAGE ForeignFunctionInterface #-}
-
 module Lib where
-
 import System.Environment (getProgName)
-import Foreign.C.String (newCString)
+import Data.Int
+import Foreign.C.String
+import Foreign.C.Types
 
-import Curryrs.Types
+type I64 = Int64
+type Str = CString
 
 triple :: I64 -> I64
 triple x = 3 * x
@@ -13,6 +14,8 @@ triple x = 3 * x
 foreign export ccall triple :: I64 -> I64
 
 getProgNameStr :: IO Str
-getProgNameStr = getProgName >>= newCString
+getProgNameStr = do
+  putStrLn "Testing one two three"
+  getProgName >>= newCString
 
 foreign export ccall getProgNameStr :: IO Str

@@ -2,7 +2,7 @@
 #
 # Some commonly used options have been documented as comments in this file.
 # For advanced use and comprehensive documentation of the format, please see:
-# http://docs.haskellstack.org/en/stable/yaml_configuration/
+# https://docs.haskellstack.org/en/stable/yaml_configuration/
 
 # Resolver to choose a 'specific' stackage snapshot or a compiler version.
 # A snapshot resolver dictates the compiler version and the set of packages
@@ -15,7 +15,7 @@
 # resolver:
 #  name: custom-snapshot
 #  location: "./custom-snapshot.yaml"
-resolver: lts-7.2
+resolver: lts-10.2
 
 # User packages to be built.
 # Various formats can be used as shown in the example below.
@@ -36,23 +36,23 @@ resolver: lts-7.2
 # non-dependency (i.e. a user package), and its test suites and benchmarks
 # will not be run. This is useful for tweaking upstream packages.
 packages:
-- '.'
+- .
 # Dependency packages to be pulled from upstream that are not in the resolver
 # (e.g., acme-missiles-0.3)
-extra-deps: []
+# extra-deps: []
 
 # Override default flag values for local packages and extra-deps
-flags: {}
+# flags: {}
 
 # Extra package databases containing global packages
-extra-package-dbs: []
+# extra-package-dbs: []
 
 # Control whether we use the GHC we find on the path
 # system-ghc: true
 #
 # Require a specific version of stack, using version ranges
 # require-stack-version: -any # Default
-# require-stack-version: ">=1.2"
+# require-stack-version: ">=1.6"
 #
 # Override the architecture used by stack, especially useful on Windows
 # arch: i386

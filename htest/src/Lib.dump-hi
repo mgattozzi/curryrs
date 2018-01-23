@@ -1,0 +1,126 @@
+
+==================== FINAL INTERFACE ====================
+2018-01-07 02:26:33.225134991 UTC
+
+interface htest-0.1.0.0-9wMAkbmorQ091s6g3tWEmn:Lib 8022
+  interface hash: e1e91ab7fae74a396b9dac8f5217bd83
+  ABI hash: 037403694908a63e5fd56ded35d524e7
+  export-list hash: e6b4e8d5d37315d35b110a734ccc0bad
+  orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
+  flag hash: c6a59ebc3cdd0b0fc5f84437c6709be6
+  sig of: Nothing
+  used TH splices: False
+  where
+exports:
+  Lib.getProgNameStr
+  Lib.triple
+  Lib.I64
+  Lib.Str
+module dependencies:
+package dependencies: base-4.10.1.0 ghc-prim-0.5.1.1
+                      integer-gmp-1.0.1.0
+orphans: base-4.10.1.0:GHC.Float base-4.10.1.0:GHC.Base
+family instance modules: base-4.10.1.0:Control.Applicative
+                         base-4.10.1.0:Data.Either base-4.10.1.0:Data.Functor.Const
+                         base-4.10.1.0:Data.Functor.Identity base-4.10.1.0:Data.Monoid
+                         base-4.10.1.0:Data.Type.Equality base-4.10.1.0:GHC.Generics
+                         base-4.10.1.0:GHC.IO.Exception base-4.10.1.0:GHC.TypeLits
+                         base-4.10.1.0:GHC.TypeNats
+import  -/  base-4.10.1.0:Foreign.C.String 77a609cc1f3a7c50c3bbf1134c105acc
+import  -/  base-4.10.1.0:Foreign.C.Types 936c0db027291520097b61fd8686710a
+import  -/  base-4.10.1.0:GHC.Base 782fd99b5e36f3698a26179a49afca64
+import  -/  base-4.10.1.0:GHC.Num 6e1dc5d36d99a802edb39b92bb1923b8
+import  -/  base-4.10.1.0:Prelude 31945b7d0084063347fc52506d3a4020
+import  -/  base-4.10.1.0:System.Environment c9f912affeed5beb387a8c5d2b2c6102
+import  -/  ghc-prim-0.5.1.1:GHC.Types b1fd0716441595db508c1a74387bf394
+826f2be1dfa064148566a0edfd26ce78
+  $fstableZC0ZChtestzm0zi1zi0zi0zm9wMAkbmorQ091s6g3tWEmnZCLibZCgetProgNameStr ::
+    GHC.Types.IO Lib.Str
+  {- Arity: 1, Strictness: <S,U>,
+     Unfolding: InlineRule (0, True, True)
+                Lib.$fstableZC0ZChtestzm0zi1zi0zi0zm9wMAkbmorQ091s6g3tWEmnZCLibZCgetProgNameStr1
+                  `cast`
+                (Sym (GHC.Types.N:IO[0] <Foreign.C.String.CString>_R)) -}
+3a4035692ee836f770b2c2cfdf7da93e
+  $fstableZC0ZChtestzm0zi1zi0zi0zm9wMAkbmorQ091s6g3tWEmnZCLibZCgetProgNameStr1 ::
+    GHC.Prim.State# GHC.Prim.RealWorld
+    -> (# GHC.Prim.State# GHC.Prim.RealWorld,
+          Foreign.C.String.CString #)
+  {- Arity: 1, Strictness: <S,U>,
+     Unfolding: InlineRule (1, True, False)
+                (\ (s :: GHC.Prim.State# GHC.Prim.RealWorld) ->
+                 case (Foreign.Marshal.Alloc.allocaBytesAligned
+                         @ Foreign.C.Types.CInt
+                         @ GHC.Base.String
+                         Foreign.Storable.$fStorableBool7
+                         Foreign.Storable.$fStorableBool7
+                         System.Environment.getProgName1
+                           `cast`
+                         (<GHC.Ptr.Ptr Foreign.C.Types.CInt>_R
+                          ->_R Sym (GHC.Types.N:IO[0] <GHC.Base.String>_R)))
+                        `cast`
+                      (GHC.Types.N:IO[0] <GHC.Base.String>_R)
+                        s of ds1 { (#,#) ipv ipv1 ->
+                 Foreign.C.String.newCString1 ipv1 ipv }) -}
+85b385045b7aa2192ef07c6ba0c388fe
+  $fstableZC1ZChtestzm0zi1zi0zi0zm9wMAkbmorQ091s6g3tWEmnZCLibZCtriple ::
+    Lib.I64 -> Lib.I64
+  {- Arity: 1, HasNoCafRefs, Strictness: <S(S),1*U(U)>m,
+     Unfolding: InlineRule (0, True, True)
+                Lib.$fstableZC1ZChtestzm0zi1zi0zi0zm9wMAkbmorQ091s6g3tWEmnZCLibZCtriple1
+                  `cast`
+                (<Lib.I64>_R ->_R Sym (Foreign.C.Types.N:CDouble[0])) -}
+77098fccce37da289e4c68f5ccf27789
+  $fstableZC1ZChtestzm0zi1zi0zi0zm9wMAkbmorQ091s6g3tWEmnZCLibZCtriple1 ::
+    Lib.I64 -> GHC.Types.Double
+  {- Arity: 1, HasNoCafRefs, Strictness: <S(S),1*U(U)>m,
+     Unfolding: InlineRule (1, True, False)
+                (\ (x :: Lib.I64) ->
+                 case x `cast`
+                      (Foreign.C.Types.N:CDouble[0]) of wild3 { GHC.Types.D# y ->
+                 GHC.Types.D# (GHC.Prim.*## 3.0## y) }) -}
+9b5caf0cb37d975004f6f221007dc92f
+  $trModule :: GHC.Types.Module
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.Module Lib.$trModule3 Lib.$trModule1) -}
+c3a35ffacb37e673db7b38bcd6cd4462
+  $trModule1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Lib.$trModule2) -}
+70704d71a3dfe52f6c54694036335c51
+  $trModule2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("Lib"#) -}
+f632e2ffdfe892cf3739d08fbd99d808
+  $trModule3 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Lib.$trModule4) -}
+54454dd2a247c6025cecbf7d79e95b08
+  $trModule4 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("htest-0.1.0.0-9wMAkbmorQ091s6g3tWEmn"#) -}
+3ec519c3e32e0e8298408ebb7709cd33
+  type I64 = Foreign.C.Types.CDouble
+1212fc822224a828f32db1d9d41892eb
+  type Str = Foreign.C.String.CString
+5c37e71bd7def9318506f1a6883783a6
+  getProgNameStr :: GHC.Types.IO Lib.Str
+  {- Arity: 1, Strictness: <S,U>,
+     Unfolding: InlineRule (0, True, True)
+                Lib.$fstableZC0ZChtestzm0zi1zi0zi0zm9wMAkbmorQ091s6g3tWEmnZCLibZCgetProgNameStr1
+                  `cast`
+                (Sym (GHC.Types.N:IO[0] <Foreign.C.String.CString>_R)) -}
+9f67cb6301f2539d3c09a51adebbfe8a
+  triple :: Lib.I64 -> Lib.I64
+  {- Arity: 1, HasNoCafRefs, Strictness: <S(S),1*U(U)>m,
+     Unfolding: InlineRule (0, True, True)
+                Lib.$fstableZC1ZChtestzm0zi1zi0zi0zm9wMAkbmorQ091s6g3tWEmnZCLibZCtriple1
+                  `cast`
+                (<Lib.I64>_R ->_R Sym (Foreign.C.Types.N:CDouble[0])) -}
+vectorised variables:
+vectorised tycons:
+vectorised reused tycons:
+parallel variables:
+parallel tycons:
+trusted: none
+require own pkg trusted: False
+
