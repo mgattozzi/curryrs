@@ -1,10 +1,6 @@
 //! Contains Type Equivalency for Haskell Types
 
-pub use std::os::raw::{
-	c_char,
-	c_float,
-	c_double
-};
+pub use std::os::raw::{c_char, c_double, c_float};
 
 /// FFI Version of bool
 pub type Boolean = u8;
@@ -16,7 +12,7 @@ pub type Chr = c_char;
 pub type Str = *const c_char;
 
 /// FFI version of u8
-pub type U8  = u8;
+pub type U8 = u8;
 
 /// FFI version of u16
 pub type U16 = u16;
@@ -28,7 +24,7 @@ pub type U32 = u32;
 pub type U64 = u64;
 
 /// FFI version of i8
-pub type I8  = i8;
+pub type I8 = i8;
 
 /// FFI version of i16
 pub type I16 = i16;

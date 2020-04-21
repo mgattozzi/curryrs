@@ -17,6 +17,5 @@ library
   exposed-modules:     Lib
   other-modules:       Curryrs.Types
   other-extensions:    ForeignFunctionInterface
-  ghc-options:         -dynamic -fPIC -shared -o libhtest.so
   build-depends:       base >= 4.7 && < 5
   default-language:    Haskell2010

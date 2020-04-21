@@ -1,6 +1,7 @@
 [package]
 name = "curryrs"
 version = "0.2.0"
+edition = "2018"
 authors = ["Michael Gattozzi <mgattozzi@gmail.com>"]
 description = "Utilities making Rust/Haskell FFI easier"
 documentation = "https://docs.rs/curryrs/"
@@ -29,6 +30,11 @@ members = ["rtest", "hrgen", "hrgen/hs-type-parser"]
 
 [dependencies]
 libc = "0.2"
+
+[build-dependencies]
+bindgen = "0.53"
+toml = "*"
+walkdir = "*"
 
 [features]
 # Features available for choosing alternative

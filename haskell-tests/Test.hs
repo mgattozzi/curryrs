@@ -7,7 +7,7 @@ import Test.Tasty.HUnit
 import Test.Tasty.QuickCheck
 
 -- Rust Function Imports
-foreign import ccall "double_input" doubleInput :: I64 -> I64
+foreign import ccall "double_input" doubleInput :: U64 -> U64
 foreign import ccall "get_true" getTrue :: Boolean
 foreign import ccall "get_false" getFalse :: Boolean
 
@@ -15,11 +15,23 @@ main :: IO ()
 main = defaultMain tests
 
 -- Test Function Helpers
-divTwo :: I64 -> I64
-divTwo x = x `div` 2
+divTwo :: Maybe U64 -> Maybe U64
+divTwo x = case x of
+  Just y -> Just $ y `div` 2
+  Nothing -> Nothing
 
-timesTwo :: I64 -> I64
-timesTwo x = x *  2
+timesTwo :: U64 -> Maybe U64
+timesTwo x
+  -- This number or higher causes the value to wrap to a negative value
+  | x >= 4611686018427387904 = Nothing
+  | otherwise = Just $ x * 2
+
+-- Wrapped Rust code variant
+inputDouble :: U64 -> Maybe U64
+inputDouble x
+  -- This number or higher causes the value to wrap to a negative value
+  | x >= 4611686018427387904 = Nothing
+  | otherwise = Just $ doubleInput x
 
 -- Test Declarations
 tests :: TestTree
@@ -35,8 +47,15 @@ unitTests = testGroup "Unit Tests"
   ]
 
 quickCheckTests = testGroup "Quickcheck Tests"
-  [ testProperty "(divTwo . doubleInput) == id" $
-    \x -> (divTwo . doubleInput) x == id x,
+  [
+    testProperty "(divTwo . inputDouble) == id" $
+    \x -> case (divTwo . inputDouble) x of
+      Just y -> y == id x
+      Nothing -> True,
+
     testProperty "doubleInput == timesTwo" $
-    \x -> doubleInput x == timesTwo x
+    \x ->  case [inputDouble x, timesTwo x] of
+      [Just x, Just y] -> x == y
+      [Nothing, Nothing] -> True
+      otherwise -> False
   ]

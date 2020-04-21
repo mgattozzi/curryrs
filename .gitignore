@@ -2,6 +2,7 @@ target
 Cargo.lock
 .stack-work
 dist
+**/dist-newstyle
 *.a
 *.so
 .cabal-sandbox
