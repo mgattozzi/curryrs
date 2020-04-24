@@ -28,13 +28,17 @@ const DYLIB_EXTENSION: &'static str = ".a";
 const DYLIB_EXTENSION: &'static str = ".dll";
 
 fn main() {
+  println!("cargo:rerun-if-changed=htest");
   // Traverse the directory to link all of the libs in ghc
   // then tell cargo where to get htest for linking
   match link_ghc_libs() {
     Err(e) => panic!("Unable to link ghc_libs: {}", e),
     Ok(_) => {
-      println!("cargo:rustc-link-search=native=htest/dist-newstyle/build/x86_64-osx/ghc-8.8.3/htest-0.1.0.0/build/");
-      println!("cargo:rustc-link-lib=static=HShtest-0.1.0.0-inplace");
+      // Only link this if the build artifact exists
+      if PathBuf::from("htest/dist-newstyle").exists() {
+        println!("cargo:rustc-link-search=native=htest/dist-newstyle/build/x86_64-osx/ghc-8.8.3/htest-0.1.0.0/build/");
+        println!("cargo:rustc-link-lib=static=HShtest-0.1.0.0-inplace");
+      }
 
       let bindings = bindgen::Builder::default()
         // The input header we would like to generate

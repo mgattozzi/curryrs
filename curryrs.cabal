@@ -32,7 +32,7 @@ test-suite curryrs-test
                      , tasty-quickcheck >= 0.8.4
   -- We only have to do this because ghc-pkg doesn't work with relative paths for
   -- extra-lib-dirs.
-  ghc-options:         -Ltarget/release -lrtest
+  ghc-options:         -Ltarget/debug -lrtest
   extra-libraries:     pthread
   default-language:    Haskell2010
 
@@ -44,7 +44,7 @@ benchmark curryrs-bench
                      , curryrs
   -- We only have to do this because ghc-pkg doesn't work with relative paths for
   -- extra-lib-dirs.
-  ghc-options:         -Ltarget/release -lrtest
+  ghc-options:         -Ltarget/debug -lrtest
   extra-libraries:     pthread
   default-language:    Haskell2010
 
