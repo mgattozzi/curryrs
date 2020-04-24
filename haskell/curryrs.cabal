@@ -22,7 +22,7 @@ library
 
 test-suite curryrs-test
   type:                exitcode-stdio-1.0
-  hs-source-dirs:      haskell-tests
+  hs-source-dirs:      tests
   other-extensions:    ForeignFunctionInterface
   main-is:             Test.hs
   build-depends:       base
@@ -32,7 +32,7 @@ test-suite curryrs-test
                      , tasty-quickcheck >= 0.8.4
   -- We only have to do this because ghc-pkg doesn't work with relative paths for
   -- extra-lib-dirs.
-  ghc-options:         -Ltarget/debug -lrtest
+  ghc-options:         -L../rust/target/debug -lrtest
   extra-libraries:     pthread
   default-language:    Haskell2010
 
@@ -44,7 +44,7 @@ benchmark curryrs-bench
                      , curryrs
   -- We only have to do this because ghc-pkg doesn't work with relative paths for
   -- extra-lib-dirs.
-  ghc-options:         -Ltarget/debug -lrtest
+  ghc-options:         -L../rust/target/debug -lrtest
   extra-libraries:     pthread
   default-language:    Haskell2010
 
